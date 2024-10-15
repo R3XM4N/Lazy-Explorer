@@ -52,6 +52,7 @@
             listBox1.ItemHeight = 23;
             listBox1.Location = new Point(31, 76);
             listBox1.Name = "listBox1";
+            listBox1.SelectionMode = SelectionMode.MultiExtended;
             listBox1.Size = new Size(443, 395);
             listBox1.TabIndex = 1;
             listBox1.DoubleClick += listBox1_DoubleClick;
@@ -63,6 +64,7 @@
             listBox2.ItemHeight = 23;
             listBox2.Location = new Point(612, 76);
             listBox2.Name = "listBox2";
+            listBox2.SelectionMode = SelectionMode.MultiExtended;
             listBox2.Size = new Size(443, 395);
             listBox2.TabIndex = 2;
             listBox2.DoubleClick += listBox2_DoubleClick;

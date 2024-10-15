@@ -10,6 +10,7 @@ namespace SharpFun
     {
         List<Displayed> leftBox = new List<Displayed>();
         List<Displayed> rightBox = new List<Displayed>();
+        //bool leftSideSel
 
         public Explorer()
         {
@@ -103,7 +104,16 @@ namespace SharpFun
             }
             else if (File.Exists(pathway))
             {
-                //Filezies
+                try
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo(pathway);
+                    startInfo.UseShellExecute = true;
+                    Process.Start(startInfo);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
     }
