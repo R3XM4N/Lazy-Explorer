@@ -10,7 +10,7 @@ namespace SharpFun
     {
         List<Displayed> leftBox = new List<Displayed>();
         List<Displayed> rightBox = new List<Displayed>();
-        //bool leftSideSel
+        int selSide = 0;
 
         public Explorer()
         {
@@ -30,11 +30,10 @@ namespace SharpFun
                 textbox.Text = path;
             }
             List<string> paths = Directory.GetDirectories(path).Concat(Directory.GetFiles(path)).ToList<string>();
-            //string names = new List<string>();
             box.Clear();
             foreach (string item in paths)
             {
-                box.Add(new Displayed("tets", item));
+                box.Add(new Displayed(Path.GetFileName(item), item));
             }
             UpdateDisp(listBox, box);
         }
@@ -44,7 +43,7 @@ namespace SharpFun
             listBox.Items.Add("↵");
             foreach (Displayed disp in displayeds)
             {
-                listBox.Items.Add(disp.PathWay);
+                listBox.Items.Add(disp.Name);
             }
         }
         void updateExploredDirs(String pathway, List<Displayed> displayeds, ListBox listBox,TextBox? textBox)
@@ -81,12 +80,18 @@ namespace SharpFun
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            doubleClickBox(listBox1.Text, leftBox, listBox1,textBox1);
+            if (listBox1.SelectedIndex - 1 < 0)
+                doubleClickBox("↵", leftBox, listBox1, textBox1);
+            else
+                doubleClickBox(leftBox[listBox1.SelectedIndex - 1].PathWay, leftBox, listBox1, textBox1);
         }
 
         private void listBox2_DoubleClick(object sender, EventArgs e)
         {
-            doubleClickBox(listBox2.Text, rightBox, listBox2, textBox2);
+            if (listBox2.SelectedIndex - 1 < 0)
+                doubleClickBox("↵", rightBox, listBox2, textBox2);
+            else
+                doubleClickBox(rightBox[listBox2.SelectedIndex-1].PathWay, rightBox, listBox2, textBox2);
         }
 
         void doubleClickBox(String pathway, List<Displayed> displayeds, ListBox listBox, TextBox? textBox)
@@ -114,6 +119,21 @@ namespace SharpFun
                 {
                     MessageBox.Show(e.Message);
                 }
+            }
+        }
+
+        void Copy()
+        {
+            switch (selSide)
+            {
+                case 1:
+                    File.Copy(textBox1.Text,textBox2.Text + ".copy");
+                    break;
+                case 2:
+
+                    break;
+                default:
+                    break;
             }
         }
     }
